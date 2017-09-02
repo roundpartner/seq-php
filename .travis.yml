@@ -20,4 +20,7 @@ install:
 
 script:
   - vendor/bin/phpunit
+
+after_script:
+  - vendor/bin/phpcs --standard=psr2 ./src ./tests
 ...
