@@ -3,6 +3,9 @@ sudo: false
 
 language: php
 
+services:
+  - docker
+
 php:
   - '5.6'
   - '7.0'
@@ -15,11 +18,16 @@ matrix:
 before_script:
   - phpenv config-rm xdebug.ini
 
+before_install:
+  - docker pull imacatlol/seq
+  - docker run -d --rm -p 6060:6060 --name seq imacatlol/seq
+
 install:
   - composer install
 
 script:
   - vendor/bin/phpunit
+  - vendor/bin/phpunit -c phpunit-integration.xml
 
 after_script:
   - vendor/bin/phpcs --standard=psr2 ./src ./tests
