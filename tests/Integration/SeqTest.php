@@ -32,7 +32,7 @@ class SeqTest extends TestCase
      */
     public function testPost()
     {
-        $response = $this->instance->post([]);
+        $response = $this->instance->post('hello world');
         $this->assertTrue($response);
     }
 
@@ -42,7 +42,7 @@ class SeqTest extends TestCase
     public function testGet()
     {
         $response = $this->instance->get();
-        $this->assertNotNull($response);
+        $this->assertEquals('"hello world"', $response[0]->body);
     }
 
     /**

@@ -26,7 +26,7 @@ class Seq
     {
         $response = $this->client->get('');
         $content = $response->getBody()->getContents();
-        $jsonObject = json_decode($content);
+        $jsonObject = (array) json_decode($content);
         if (empty($jsonObject)) {
             return null;
         }
