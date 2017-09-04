@@ -42,7 +42,7 @@ class SeqTest extends TestCase
     public function testGet()
     {
         $response = $this->instance->get();
-        $this->assertEquals('"hello world"', $response[0]->body);
+        $this->assertEquals('hello world', $response[0]->body);
     }
 
     /**
