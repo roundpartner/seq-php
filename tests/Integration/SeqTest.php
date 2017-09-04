@@ -68,6 +68,7 @@ class SeqTest extends TestCase
 
     public function testDeleteNotFound()
     {
+        $this->instance->delete(1);
         $response = $this->instance->delete(1);
         $this->assertFalse($response);
     }
