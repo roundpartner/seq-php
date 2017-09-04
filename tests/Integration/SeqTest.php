@@ -16,11 +16,11 @@ class SeqTest extends TestCase
     public function setUp()
     {
         $this->instance = new Seq();
+        do {
+            $response = $this->instance->get();
+        } while($response);
     }
 
-    /**
-     * @dataProvider \Test\Provider\ResponseProvider::getEmpty()
-     */
     public function testGetEmpty()
     {
         $response = $this->instance->get();
@@ -28,35 +28,44 @@ class SeqTest extends TestCase
     }
 
     /**
-     * @dataProvider \Test\Provider\ResponseProvider::post()
+     * @param string $json
+     *
+     * @dataProvider \Test\Provider\JsonProvider::validJson()
      */
-    public function testPost()
+    public function testPost($json)
     {
-        $response = $this->instance->post('hello world');
+        $response = $this->instance->post($json);
         $this->assertTrue($response);
     }
 
     /**
-     * @dataProvider \Test\Provider\ResponseProvider::get()
+     * @param string $json
+     * @param callable $test
+     * @param string $cmp
+     *
+     * @dataProvider \Test\Provider\JsonProvider::validJson()
      */
-    public function testGet()
+    public function testGet($json, $test, $cmp)
     {
+        $this->instance->post($json);
         $response = $this->instance->get();
-        $this->assertEquals('hello world', $response[0]->body);
+        $result = $test($response[0]->body);
+        $this->assertEquals($cmp, $result);
     }
 
     /**
-     * @dataProvider \Test\Provider\ResponseProvider::delete()
+     * @param string $json
+     *
+     * @dataProvider \Test\Provider\JsonProvider::validJson()
      */
-    public function testDelete()
+    public function testDelete($json)
     {
-        $response = $this->instance->delete(1);
+        $this->instance->post($json);
+        $response = $this->instance->get();
+        $response = $this->instance->delete($response[0]->id);
         $this->assertTrue($response);
     }
 
-    /**
-     * @dataProvider \Test\Provider\ResponseProvider::deleteNotFound()
-     */
     public function testDeleteNotFound()
     {
         $response = $this->instance->delete(1);
