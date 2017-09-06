@@ -44,6 +44,19 @@ class SeqTest extends TestCase
     /**
      * @param Response[] $responses
      *
+     * @dataProvider \Test\Provider\ResponseProvider::getInvalidHMAC()
+     */
+    public function testGetHMACInvalid($responses)
+    {
+        $client = $this->getClientMock($responses);
+        $this->instance->setClient($client);
+        $response = $this->instance->get();
+        $this->assertNull($response);
+    }
+
+    /**
+     * @param Response[] $responses
+     *
      * @dataProvider \Test\Provider\ResponseProvider::getEmpty()
      */
     public function testGetEmpty($responses)

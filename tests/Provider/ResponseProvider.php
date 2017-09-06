@@ -12,7 +12,17 @@ class ResponseProvider
     public static function get()
     {
         return [
-            [[new Response(200, ['Content-Type' => 'application/json; charset=utf-8'], '[{"id":1,"body":"hello world"}]')]]
+            [[new Response(200, ['Content-Type' => 'application/json; charset=utf-8', 'HMAC' => 'hTRz5DRjc0AbT6aIENl0kDARdvepXMahIHIxOa6VFq8='], '[{"id":1,"body":"hello world"}]')]]
+        ];
+    }
+
+    /**
+     * @return Response[]
+     */
+    public static function getInvalidHMAC()
+    {
+        return [
+            [[new Response(200, ['Content-Type' => 'application/json; charset=utf-8', 'HMAC' => 'hTRz5DRjc0AbT6aIENl0kDARdvepXMahIHIxOa6VFq8='], '[{"id":2,"body":"hello world"}]')]]
         ];
     }
 
@@ -22,7 +32,7 @@ class ResponseProvider
     public static function getEmpty()
     {
         return [
-            [[new Response(200, ['Content-Type' => 'application/json; charset=utf-8'], '[]')]]
+            [[new Response(200, ['Content-Type' => 'application/json; charset=utf-8', 'HMAC' => 'gBPtzLexSoIuVxap0j4hNLWxk24pBw6ZlpKQLwr8RVk='], '[]')]]
         ];
     }
 
@@ -32,12 +42,12 @@ class ResponseProvider
     public static function getMultiple()
     {
         return [
-            [[new Response(200, ['Content-Type' => 'application/json; charset=utf-8'], '[{"id":1,"body":"hello world"}]')]]
-            [[new Response(200, ['Content-Type' => 'application/json; charset=utf-8'], '[{"id":2,"body":"hello world"}]')]]
-            [[new Response(200, ['Content-Type' => 'application/json; charset=utf-8'], '[{"id":3,"body":"hello world"}]')]]
-            [[new Response(200, ['Content-Type' => 'application/json; charset=utf-8'], '[{"id":4,"body":"hello world"}]')]]
-            [[new Response(200, ['Content-Type' => 'application/json; charset=utf-8'], '[{"id":5,"body":"hello world"}]')]]
-            [[new Response(200, ['Content-Type' => 'application/json; charset=utf-8'], '[]')]]
+            [[new Response(200, ['Content-Type' => 'application/json; charset=utf-8', 'HMAC' => ''], '[{"id":1,"body":"hello world"}]')]]
+            [[new Response(200, ['Content-Type' => 'application/json; charset=utf-8', 'HMAC' => ''], '[{"id":2,"body":"hello world"}]')]]
+            [[new Response(200, ['Content-Type' => 'application/json; charset=utf-8', 'HMAC' => ''], '[{"id":3,"body":"hello world"}]')]]
+            [[new Response(200, ['Content-Type' => 'application/json; charset=utf-8', 'HMAC' => ''], '[{"id":4,"body":"hello world"}]')]]
+            [[new Response(200, ['Content-Type' => 'application/json; charset=utf-8', 'HMAC' => ''], '[{"id":5,"body":"hello world"}]')]]
+            [[new Response(200, ['Content-Type' => 'application/json; charset=utf-8', 'HMAC' => 'gBPtzLexSoIuVxap0j4hNLWxk24pBw6ZlpKQLwr8RVk='], '[]')]]
         ];
     }
 

@@ -26,11 +26,30 @@ class Seq
     {
         $response = $this->client->get('');
         $content = $response->getBody()->getContents();
+        if (!$this->validate($content, $response->getHeader('HMAC'))) {
+            return null;
+        }
         $jsonObject = (array) json_decode($content);
         if (empty($jsonObject)) {
             return null;
         }
         return $jsonObject;
+    }
+
+    /**
+     * @param string $body
+     * @param string[] $header
+     *
+     * @return bool
+     */
+    private function validate($body, $header)
+    {
+        $digest = array_shift($header);
+        $validator = new HMAC('an example key');
+        if (false === $validator->validate($body, $digest)) {
+            return false;
+        }
+        return true;
     }
 
     /**
