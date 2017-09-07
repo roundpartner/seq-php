@@ -15,10 +15,10 @@ matrix:
     - php: '7.0'
   fast_finish: true
 
-before_install:
+before_script:
   - phpenv config-rm xdebug.ini
 
-before_script:
+before_install:
   - docker pull imacatlol/seq
   - docker run -d --rm -p 6060:6060 --name seq imacatlol/seq
 
