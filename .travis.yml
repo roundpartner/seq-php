@@ -15,9 +15,6 @@ matrix:
     - php: '7.0'
   fast_finish: true
 
-before_install:
-  - phpenv config-rm xdebug.ini
-
 before_script:
   - docker pull imacatlol/seq
   - docker run -d --rm -p 6060:6060 --name seq imacatlol/seq
@@ -26,9 +23,10 @@ install:
   - composer install
 
 script:
-  - vendor/bin/phpunit
+  - vendor/bin/phpunit -c phpunit.xml.dist
   - vendor/bin/phpunit -c phpunit-integration.xml
+  - vendor/bin/phpcs --standard=psr2 src
 
-after_script:
-  - vendor/bin/phpcs --standard=psr2 ./src
+after_success:
+  - travis_retry php vendor/bin/coveralls
 ...
