@@ -18,7 +18,7 @@ class SeqTest extends TestCase
         $this->instance = new Seq();
         do {
             $response = $this->instance->get();
-        } while($response);
+        } while ($response);
     }
 
     public function testGetEmpty()

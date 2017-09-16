@@ -12,11 +12,17 @@ class Seq
      */
     protected $client;
 
+    /**
+     * @var HMAC
+     */
+    protected $validator;
+
     public function __construct()
     {
         $this->client = new Client([
             'base_uri' => 'http://0.0.0.0:6060'
         ]);
+        $this->validator = new HMAC('an example key');
     }
 
     /**
@@ -45,8 +51,7 @@ class Seq
     private function validate($body, $header)
     {
         $digest = array_shift($header);
-        $validator = new HMAC('an example key');
-        if (false === $validator->validate($body, $digest)) {
+        if (false === $this->validator->validate($body, $digest)) {
             return false;
         }
         return true;
