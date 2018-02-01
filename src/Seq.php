@@ -17,12 +17,18 @@ class Seq
      */
     protected $validator;
 
-    public function __construct()
+    /**
+     * Seq constructor.
+     *
+     * @param string $host
+     * @param string $key
+     */
+    public function __construct($host, $key)
     {
         $this->client = new Client([
-            'base_uri' => 'http://0.0.0.0:6060'
+            'base_uri' => 'http://' . $host . ':6060',
         ]);
-        $this->validator = new HMAC('an example key');
+        $this->validator = new HMAC($key);
     }
 
     /**
