@@ -15,7 +15,7 @@ class SeqTest extends TestCase
 
     public function setUp()
     {
-        $this->instance = new Seq('http://0.0.0.0:6060', 'an example key');
+        $this->instance = new Seq('0.0.0.0', 'an example key');
         do {
             $response = $this->instance->get();
         } while ($response);
